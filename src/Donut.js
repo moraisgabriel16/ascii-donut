@@ -1,18 +1,20 @@
 // src/Donut.js
 import React, { useEffect, useRef } from 'react';
+import './Donut.css';
 
-const Donut = () => {
+const Donut = ({ color, speed, resolution, size }) => {
   const preRef = useRef(null);
 
   useEffect(() => {
     let A = 0;
     let B = 0;
+    let interval;
 
     const renderFrame = () => {
       const b = [];
       const z = [];
-      const width = 80;
-      const height = 22;
+      const width = size.width;
+      const height = size.height;
       const background = ' ';
       const output = [];
 
@@ -21,8 +23,11 @@ const Donut = () => {
         z[i] = 0;
       }
 
-      for (let j = 0; j < 6.28; j += 0.07) {
-        for (let i = 0; i < 6.28; i += 0.02) {
+      const incrementJ = resolution.j;
+      const incrementI = resolution.i;
+
+      for (let j = 0; j < 6.28; j += incrementJ) {
+        for (let i = 0; i < 6.28; i += incrementI) {
           const sinA = Math.sin(A);
           const cosA = Math.cos(A);
           const sinB = Math.sin(B);
@@ -58,16 +63,17 @@ const Donut = () => {
         preRef.current.innerText = output.join('\n');
       }
 
-      A += 0.04;
-      B += 0.02;
+      A += speed;
+      B += speed / 2;
     };
 
-    const interval = setInterval(renderFrame, 50);
+    interval = setInterval(renderFrame, 50);
+
     return () => clearInterval(interval);
-  }, []);
+  }, [speed, resolution, size]);
 
   return (
-    <div style={{ backgroundColor: 'black', color: 'white', fontFamily: 'monospace' }}>
+    <div style={{ backgroundColor: 'black', color: color, fontFamily: 'monospace', textAlign: 'center' }}>
       <pre ref={preRef}></pre>
     </div>
   );
