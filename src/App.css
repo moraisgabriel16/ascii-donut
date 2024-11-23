@@ -1,4 +1,5 @@
 /* src/App.css */
+
 body, html, #root {
   margin: 0;
   padding: 0;
@@ -6,31 +7,43 @@ body, html, #root {
 }
 
 .app {
-  display: flex;
-  flex-direction: column;
+  position: relative;
   height: 100%;
   background-color: black;
   color: white;
   font-family: Arial, sans-serif;
 }
 
-.control-panel {
-  padding: 20px;
-  text-align: center;
-  background-color: #222;
-  border-bottom: 1px solid #444;
+.mute-button, .menu-button {
+  position: absolute;
+  top: 10px;
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
 }
 
-.control-panel h1 {
+.mute-button {
+  right: 50px;
+}
+
+.menu-button {
+  right: 10px;
+}
+
+.control-panel {
+  padding: 20px;
+}
+
+.control-panel h2 {
   margin-top: 0;
 }
 
 .control-group {
   margin-top: 10px;
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
 }
 
 .control-group label {
@@ -39,7 +52,7 @@ body, html, #root {
 }
 
 .control-group input[type="range"] {
-  width: 150px;
+  flex: 1;
 }
 
 .control-group input[type="number"] {
@@ -64,18 +77,51 @@ body, html, #root {
   background-color: #555;
 }
 
-@media (max-width: 600px) {
-  .control-group {
-    flex-direction: column;
-    align-items: flex-start;
+/* Estilos do menu hambúrguer */
+.bm-burger-button {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .bm-burger-button {
+    position: fixed;
+    width: 30px;
+    height: 24px;
+    right: 10px;
+    top: 10px;
+    display: block;
   }
 
-  .control-group label {
-    margin-bottom: 5px;
+  .menu-button {
+    display: none;
   }
 
-  .control-group input[type="range"],
-  .control-group input[type="number"] {
+  .mute-button {
+    right: 50px;
+  }
+  .audio-permission-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .audio-permission-overlay button {
+    padding: 20px 40px;
+    font-size: 1.2em;
+    background-color: #444;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .audio-permission-overlay button:hover {
+    background-color: #555;
   }
 }
